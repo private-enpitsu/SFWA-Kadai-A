@@ -1,0 +1,60 @@
+package com.example.app.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.app.domain.Item;
+import com.example.app.domain.Location;
+import com.example.app.mapper.ItemMapper;
+
+import lombok.RequiredArgsConstructor;
+
+//ItemService インターフェースを実装するクラス。
+//ItemMapper やLocationMapper を使用し、備品情報を操作する。
+
+@Service
+@RequiredArgsConstructor
+public class ItemServiceImpl implements ItemService {
+	
+	
+	private final ItemMapper itemMapper;
+	
+
+	@Override
+	public List<Item> getAllItems() {
+
+		return itemMapper.selectAll();
+	}
+
+	@Override
+	public Item getItemById(Integer id) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public void addItem(Item item) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	@Override
+	public void editItem(Item item) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	@Override
+	public void deleteItem(Integer id) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	@Override
+	public List<Location> getItemLocations() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+}

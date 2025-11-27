@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.app.mapper.ItemMapper">
+    
+    <resultMap id="itemMap" type="com.example.app.domain.Item" autoMapping="true">
+	   	<association property="location" javaType="com.example.app.domain.Location">
+	   	   <result property="name" column="location_name" />
+	   	</association>
+	</resultMap>
+	
+    <select id="selectAll" resultMap="itemMap">
+        SELECT 
+          items.id, items.name, items.amount,
+          locations.name AS location_name
+        FROM items
+        JOIN locations
+          ON items.location_id = locations.id
+<!--        ORDER BY registered DESC-->
+    </select>
+
+</mapper>

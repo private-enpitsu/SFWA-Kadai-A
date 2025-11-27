@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <title>備品管理</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-lg-4 offset-lg-4">
+          <form action="list.html">
+            <h1 class="h3 text-center mb-3 fw-normal">備品管理システム</h1>
+
+            <div class="form-floating">
+              <input
+                type="text"
+                class="form-control rounded-0 rounded-top"
+                id="floatingInput"
+                placeholder="ログインID"
+              />
+              <label for="floatingInput">ログインID</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                class="form-control border-top-0 rounded-0 rounded-bottom"
+                id="floatingPassword"
+                placeholder="パスワード"
+              />
+              <label for="floatingPassword">パスワード</label>
+            </div>
+
+            <input
+              class="w-100 btn btn-lg btn-primary mb-3"
+              type="submit"
+              value="ログイン"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
