@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
+    <link  th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link  th:href="@{/css/style.css}" rel="stylesheet" />
     <title>備品管理</title>
   </head>
   <body>
@@ -60,6 +60,14 @@
     </nav>
     <div class="container mt-5">
       <h1>備品リスト</h1>
+	  
+<!--	  フラッシュメッセージ-->
+<!-- ▼ status に値が入っているときだけ表示される、緑色の成功メッセージ -->
+	  <div th:if="${status != null}" class="alert alert-success">
+		<!-- [[${status}]] : コントローラから渡された status の文字列を HTML エスケープして表示 -->
+	    [[${status}]]
+	  </div>
+	  
       <a class="btn btn-primary my-3" th:href="@{items/add}">備品の追加</a>
       <div class="row">
         <div class="col-md-12">
@@ -110,6 +118,6 @@
       </div>
     </div>
     <!-- /.container -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{js/bootstrap.bundle.min.js}"></script>
   </body>
 </html>

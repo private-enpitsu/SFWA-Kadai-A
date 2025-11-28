@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link  th:href="@{/css/style.css}" rel="stylesheet" />
     <title>備品管理</title>
   </head>
   <body>
@@ -44,6 +44,6 @@
       </div>
     </div>
     <!-- /.container -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{js/bootstrap.bundle.min.js}"></script>
   </body>
 </html>

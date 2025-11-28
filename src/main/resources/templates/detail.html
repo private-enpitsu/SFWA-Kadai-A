@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
     <title>備品管理</title>
   </head>
   <body>
@@ -59,12 +59,25 @@
       <!-- /.container -->
     </nav>
 	
+	
+	
+	<!-- ▼ item が null（= 見つからなかった）場合だけ表示されるブロック -->
+	<div th:if="${item == null}" class="container mt-5">
+		<!-- 赤いアラート表示。「お探しの備品は存在しません」とエラー扱いで出す -->
+		<div class="alert alert-danger">お探しの備品は存在しません</div>
+		<a class="btn btn-primary my-3" th:href="@{/items}">備品リストに戻る</a>
+	</div>
+
+	<!-- ▼ item が null でない（= 正常に1件取得できた）場合だけ表示されるブロック -->
 	<div th:if="${item != null}" 
 	     th:object="${item}"
 	     class="container mt-5">
+		 
+		 <!-- ▼ status に値が入っているときだけ表示される、緑色の成功メッセージ -->
 	  <div th:if="${status != null}" class="alert alert-success">
+		<!-- [[${status}]] : コントローラから渡された status の文字列を HTML エスケープして表示 -->
 	    [[${status}]]
-	  </div>  
+	  </div> 
 	  <h1>[[*{name}]]</h1>
       <a class="btn btn-primary my-3" th:href="@{/items}">備品リストに戻る</a>
       <div class="row">
@@ -100,12 +113,12 @@
         </div>
       </div>
       <div>
-        <a class="btn btn-warning" href="edit.html">編集</a>
-        <a id="delete" class="btn btn-danger" href="list.html">削除</a>
+        <a class="btn btn-warning" th:href="@{/items/edit/{id}(id=*{id})}">編集</a>
+        <a id="delete" class="btn btn-danger" th:href="@{/items/delete/{id}(id=*{id})}">削除</a>
       </div>
     </div>
     <!-- /.container -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{js/bootstrap.bundle.min.js}"></script>
     <script>
       document.getElementById('delete')
         .addEventListener('click', e => {
