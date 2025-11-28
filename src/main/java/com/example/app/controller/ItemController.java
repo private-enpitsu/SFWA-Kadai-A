@@ -118,7 +118,16 @@ public class ItemController {
 		return null;
 	}
 	
-	public String editItem() {
+	@PostMapping("/edit/{id}")
+	public String editItem(
+			@PathVariable Integer id,
+			@Valid Item item,
+			Errors errors,
+			Model model,
+			RedirectAttributes ra) {
+		if(errors.hasErrors()) {
+			
+		}
 		return null;
 	}
 	

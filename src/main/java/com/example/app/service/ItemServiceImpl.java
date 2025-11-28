@@ -43,7 +43,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public void editItem(Item item) {
-		// TODO 自動生成されたメソッド・スタブ
+		itemMapper.update(item);
 		
 	}
 
