@@ -12,10 +12,15 @@ import com.example.app.domain.Item;
 @Mapper
 public interface ItemMapper {
 
-	
 //	items テーブルから全備品のリストを登録日時の新しい順に取得する。
 	List<Item> selectAll();
 	
+	
+/**
+ * 主キー(id)を指定して、備品を1件取得する。
+ * @param id 取得したい備品のID
+ * @return 該当する Item。存在しなければ null（MyBatis の仕様）
+ */
 	
 //	ID 番号に基づき、items テーブルから１件分の備品データを取得する。
 	Item selectById(int id);

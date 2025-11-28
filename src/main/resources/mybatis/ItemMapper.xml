@@ -10,6 +10,9 @@
 	   	</association>
 	</resultMap>
 	
+	
+	
+	
     <select id="selectAll" resultMap="itemMap">
         SELECT 
           items.id, items.name, items.amount,
@@ -17,7 +20,49 @@
         FROM items
         JOIN locations
           ON items.location_id = locations.id
-<!--        ORDER BY registered DESC-->
+          ORDER BY registered DESC
     </select>
 
+
+
+    <select id="selectById" resultMap="itemMap"
+            parameterType="int">
+        SELECT 
+          items.id, items.name, items.amount,
+          locations.id AS location_id,
+          locations.name AS location_name,
+          items.registered, items.updated,
+          items.note
+        FROM items
+        JOIN locations
+          ON items.location_id = locations.id
+        WHERE items.id = #{id}  <!-- ★ ここで1件だけ取得 -->
+    </select>
+    
+    
+    
+    
+        <!-- 備品データ登録 -->
+    <insert id="insert" parameterType="com.example.app.domain.Item" >
+        INSERT INTO items (
+          name,
+          amount,
+          location_id,
+          note
+        )
+        VALUES (
+          #{name},          <!-- Item.name -->
+          #{amount},        <!-- Item.amount -->
+          #{location.id},   <!-- Item.location.id -->
+          #{note}           <!-- Item.note -->
+        )
+    </insert>
+    
+    
+    <delete id="delete" parameterType="int">
+    	DELETE FROM items WHERE id = #{id}
+    </delete>
+    
+    
+    
 </mapper>

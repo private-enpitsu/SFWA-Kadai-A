@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -58,38 +58,44 @@
       </div>
       <!-- /.container -->
     </nav>
-    <div class="container mt-5">
-      <h1>デスクトップPC</h1>
-      <a class="btn btn-primary my-3" href="list.html">備品リストに戻る</a>
+	
+	<div th:if="${item != null}" 
+	     th:object="${item}"
+	     class="container mt-5">
+	  <div th:if="${status != null}" class="alert alert-success">
+	    [[${status}]]
+	  </div>  
+	  <h1>[[*{name}]]</h1>
+      <a class="btn btn-primary my-3" th:href="@{/items}">備品リストに戻る</a>
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-bordered table-hover detail-table">
-            <tbody>
-              <tr>
-                <th class="bg-secondary text-white">ID</th>
-                <td>3</td>
-              </tr>
-              <tr>
-                <th class="bg-secondary text-white">数量</th>
-                <td>1</td>
-              </tr>
-              <tr>
-                <th class="bg-secondary text-white">場所</th>
-                <td>開発部</td>
-              </tr>
-              <tr>
-                <th class="bg-secondary text-white">登録日時</th>
-                <td>2024年03月07日(木) 08時48分</td>
-              </tr>
-              <tr>
-                <th class="bg-secondary text-white">更新日時</th>
-                <td>2024年03月07日(木) 09時13分</td>
-              </tr>
-              <tr>
-                <th class="bg-secondary text-white">備考</th>
-                <td><pre class="note">オフィスソフトはインストール済み</pre></td>
-              </tr>
-            </tbody>
+			<table class="table table-bordered table-hover detail-table">
+			  <tbody>
+			    <tr>
+			      <th class="bg-secondary text-white">ID</th>
+			      <td>[[*{id}]]</td>
+			    </tr>
+			    <tr>
+			      <th class="bg-secondary text-white">数量</th>
+			      <td>[[*{amount}]]</td>
+			    </tr>
+			    <tr>
+			      <th class="bg-secondary text-white">場所</th>
+			      <td>[[*{location.name}]]</td>
+			    </tr>
+			    <tr>
+			      <th class="bg-secondary text-white">登録日時</th>
+			      <td>[[*{#temporals.format(registered, 'y年MM月dd日(E) HH時mm分')}]]</td>
+			    </tr>
+			    <tr>
+			      <th class="bg-secondary text-white">更新日時</th>
+			      <td>[[*{#temporals.format(updated, 'y年MM月dd日(E) HH時mm分')}]]</td>
+			    </tr>
+			    <tr>
+			    	<th class="bg-secondary text-white">備考</th>
+			    	<td><pre class="note">[[*{note}]]</pre></td>
+			    </tr>
+			  </tbody>
           </table>
         </div>
       </div>

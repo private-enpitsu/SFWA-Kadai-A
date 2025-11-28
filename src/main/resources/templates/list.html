@@ -60,7 +60,7 @@
     </nav>
     <div class="container mt-5">
       <h1>備品リスト</h1>
-      <a class="btn btn-primary my-3" href="save.html">備品の追加</a>
+      <a class="btn btn-primary my-3" th:href="@{items/add}">備品の追加</a>
       <div class="row">
         <div class="col-md-12">
 			
@@ -86,24 +86,14 @@
 			      itemList: Controller から渡される List<Item>
 			      item    : 1件分の Item
 			    -->
-			    <tr class="align-middle" th:each="item : ${itemList}">
-			      <!-- Item.id を表示 -->
-			      <td th:text="${item.id}">1</td>
-
-			      <!-- Item.name を表示（品名） -->
-			      <td th:text="${item.name}">サンプル備品</td>
-
-			      <!-- Item.amount を表示（数量） -->
-			      <td th:text="${item.amount}">10</td>
-
-			      <!-- Item.location.name を表示（場所名）
-			           location が null でも落ちないように Elvis 演算子 ?: を使用 -->
-			      <td th:text="${item.location != null ? item.location.name : ''}">会議室A</td>
-
-			      <!-- 詳細ボタン
-			           /items/detail/{id} へのリンクを作成 -->
+			    <tr class="align-middle" th:each="item : ${itemList}" th:object="${item}">
+					<td>[[*{id}]]</td>
+					<td>[[*{name}]]</td>
+					<td>[[*{amount}]]</td>
+					<td>[[*{location.name}]]</td>
+			      <!-- 詳細ボタン /items/detail/{id} へのリンクを作成 -->
 			      <td>
-			        <a  class="btn btn-warning"  th:href="@{|/items/detail/${item.id}|}">
+			        <a class="btn btn-warning"  th:href="@{/items/detail/{id}(id=*{id})}">
 			          詳細
 			        </a>
 			      </td>

@@ -12,6 +12,12 @@ public interface ItemService {
 	
 	List<Item> getAllItems();			//備品リストを取得する
 	
+	
+    /*
+     * 備品をIDで1件取得する。
+     * @param id 取得したい備品のID
+     * @return 該当する Item。存在しなければ null（MyBatis の仕様）
+     */
 	Item getItemById(Integer id);		//ID 番号に基づき、１件分の備品情報を取得する。
 	
 	void addItem(Item item);			//備品を登録する。

@@ -29,13 +29,15 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public Item getItemById(Integer id) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+
+		return itemMapper.selectById(id);
 	}
 
 	@Override
 	public void addItem(Item item) {
-		// TODO 自動生成されたメソッド・スタブ
+		
+//		DBに登録のため、ItemMapperのinsert関数を呼ぶ
+		itemMapper.insert(item);
 		
 	}
 
@@ -47,7 +49,12 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public void deleteItem(Integer id) {
-		// TODO 自動生成されたメソッド・スタブ
+		
+		if(id == null) {
+			return;
+		}
+		
+		itemMapper.delete(id);
 		
 	}
 
