@@ -84,7 +84,7 @@ public class AuthController {
 		
 		// フラッシュメッセージとして「ログインしました」を登録。// リダイレクト先の画面で 1 回だけ ${status} などで表示できる。
 		ra.addFlashAttribute("status","ログインしました");
-		return "redirect:/";
+		return "redirect:/item";
 	}
 	
 	
