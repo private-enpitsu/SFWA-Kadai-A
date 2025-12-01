@@ -75,15 +75,16 @@
     	  amount = #{amount},
     	  location_id = #{location.id},
     	  note = #{note}
-    	  
-    	<!--
+    	WHERE id = #{id}
+    	
+    	    	<!--
           WHERE 句で、どの行を更新するかを指定する。
           id カラムが、Item.id の値と一致する行だけを更新する。
           つまり：
             「この id の備品レコード1件を更新する」
           という絞り込み。
         -->
-    	WHERE id = #{id}
+        
     </update>
     
     

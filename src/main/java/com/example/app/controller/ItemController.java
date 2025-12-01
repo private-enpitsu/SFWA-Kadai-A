@@ -112,26 +112,92 @@ public class ItemController {
 		return "redirect:/items";
 	}
 		
-	
-	
-	public String showEditForm() {
-		return null;
+    // 「/items/edit/{id}」というURLへの GET リクエストを
+    // このメソッドで受け取る、という意味。
+	@GetMapping("/edit/{id}")
+	public String showEditForm(
+			// URL の {id} 部分を Integer 型の id という変数として受け取る。
+			@PathVariable Integer id,
+			
+			// 画面（ビュー）に値を渡すための入れ物。
+            // フォームに表示する Item や、場所一覧を詰めてテンプレートに渡す。
+			Model model
+			) {
+		
+        // id を使って、編集対象の備品データを1件取得し、
+        // "item" という名前で Model に入れる。
+        // edit.html 側では th:object="${item}" などで参照する想定。
+		model.addAttribute("item", itemService.getItemById(id));
+
+        // セレクトボックス用の場所一覧を取得して、
+        // "locationList" という名前で Model に入れる。
+        // edit.html で th:each を使って選択肢を表示するためのリスト。
+		model.addAttribute("locationList", itemService.getItemLocations());
+
+        // "edit" という名前のビュー（通常は edit.html）を表示する。
+        // ここまでに Model に入れた "item" と "locationList" を使って
+        // 編集フォームの初期表示を行う。
+		return "edit";
 	}
 	
+	
+    // ================================
+    // A-01-5: 備品情報の更新機能
+    // ================================
+    // 「/items/edit/{id}」というURLに対する POST リクエストを
+    // このメソッドで受け取る、という意味。
+    // 例: /items/edit/5 にフォームをPOSTすると、このメソッドが呼ばれる。
 	@PostMapping("/edit/{id}")
 	public String editItem(
+			
+			// URL パスの {id} 部分を Integer 型の変数 id として受け取る。
 			@PathVariable Integer id,
+			
+            // 画面のフォーム入力値を Item オブジェクトに詰める。
+            // 同時に @Valid により、Item クラスに付いているバリデーション
+            // アノテーション（@NotBlank など）を使って入力チェックを行う。
 			@Valid Item item,
+			
+            // 上の @Valid の結果（エラー情報）が入ってくるオブジェクト。
+            // エラーがあるかどうかは errors.hasErrors() で判定できる。
 			Errors errors,
+			
+            // 画面（ビュー）に値を渡すための入れ物。
+            // 再表示時に、セレクトボックス用のリストなどを入れるのに使う。
 			Model model,
+			
+            // リダイレクト先の画面に「1回だけ表示するメッセージ」
+            // （フラッシュメッセージ）を渡すためのオブジェクト。
 			RedirectAttributes ra) {
+		
+		// バリデーションエラー（必須項目未入力・桁数オーバーなど）が1件でもあれば true。
 		if(errors.hasErrors()) {
 			
+            // エラーがある場合、再表示する edit.html で場所のプルダウンを
+            // 正しく表示するために、場所一覧を取得して Model に入れている。
+            // ※ service.getItemLocations() は「場所一覧を返す」メソッド想定。
+			model.addAttribute("locationList", itemService.getItemLocations());
+			
+            // 入力エラーがあるので更新処理は行わず、
+            // 編集画面（edit.html）をそのまま再表示する。
+			return "edit";
 		}
-		return null;
+		
+		// ItemService を使って、Item の内容でDBの備品情報を更新する。
+		itemService.editItem(item);
+		
+        // リダイレクト先の詳細画面で 1 回だけ使えるメッセージを登録する。
+        // ここでは "status" という名前で「備品情報を更新しました」という文字列を渡す。
+        // detail.html 側で [[${status}]] などとして表示できる。
+		ra.addFlashAttribute("status", "備品情報を更新しました");
+
+		// 更新が完了したら、その備品の詳細ページにリダイレクトする。
+		return "redirect:/items/detail/" + id;
 	}
 	
-	
+    // ================================
+    // A-01-4: 備品の削除機能
+    // ================================
 	// 「/items/delete/{id}」というURLへのGETリクエストを、このメソッドに割り当てる。
 	// 例: /items/delete/5 にアクセスすると、このメソッドが呼ばれる。
 	@GetMapping("/delete/{id}")

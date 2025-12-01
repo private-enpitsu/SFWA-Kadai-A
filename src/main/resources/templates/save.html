@@ -10,7 +10,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="">備品管理システム</a>
+        <a class="navbar-brand" th:href="@{/items}">備品管理システム</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -85,7 +85,8 @@
 			  <div th:if="${#fields.hasErrors('amount')}" class="alert alert-danger" th:errors="*{amount}">
 			    <!-- 「数量が未入力です」「数量は 0 以上の値を入力してください」など -->
 			  </div>
-            <div class="form-group mb-3">
+
+            <div class="form-group mb-3 ">
               <label for="formAmount">数量</label>
               <input
                 type="text"

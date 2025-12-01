@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.app.domain.Item;
 import com.example.app.domain.Location;
 import com.example.app.mapper.ItemMapper;
+import com.example.app.mapper.LocationMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +20,7 @@ public class ItemServiceImpl implements ItemService {
 	
 	
 	private final ItemMapper itemMapper;
-	
+	private final LocationMapper locationMapper;
 
 	@Override
 	public List<Item> getAllItems() {
@@ -60,8 +61,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public List<Location> getItemLocations() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		return locationMapper.selectAll();
 	}
 
 }
