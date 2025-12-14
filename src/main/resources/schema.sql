@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS members (
   name VARCHAR(20) NOT NULL,
   login_id VARCHAR(20) NOT NULL,
   login_pass CHAR(60) NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_members_login_id (login_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS items (
@@ -21,6 +22,8 @@ CREATE TABLE IF NOT EXISTS items (
   registered DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
+  KEY idx_items_location_id (location_id),
   CONSTRAINT fk_items_locations
     FOREIGN KEY (location_id) REFERENCES locations (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
